@@ -6,14 +6,18 @@ obra = []
 with open("alg2/filmes.csv", "r") as filmes, open("alg2/ano.csv", mode='w', encoding='utf-8') as linhas:
     for linha in filmes:
         coluna = linha.split(";")
-        if (coluna[0] != "Ano de Lançamento"):
+        if (coluna[0] != "Ano de Lancamento"):
             A_lancamento.append(coluna[0])
+    for i in A_lancamento:
+        linhas.write(i + "\n")
         
 with open("alg2/filmes.csv", 'r') as filmes, open('alg2/titulo.csv', 'w') as titulo:
     for linha in filmes:
         coluna = linha.split(";")
         if coluna[1] != "Título da obra":
             obra.append(coluna[1])
+    for i in obra:
+        titulo.write(i + "\n")
 
 with open('alg2/ano.csv', 'r') as ano, open('alg2/titulo.csv', 'r') as titulo, open("alg2/TandO.csv", 'w') as TandO:
     for i in range(len(A_lancamento)):
