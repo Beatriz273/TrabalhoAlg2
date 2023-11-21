@@ -29,7 +29,9 @@ def contarlinha():
 
 def filme_ano(ano):
     with open("alg2/filmes.csv", "r") as filme, open("alg2/filme_ano.csv", "a") as filme_ano:
-        filme_ano.write("Ano;Título da Obra \n")
+        writer = csv.DictWriter(filme_ano, fieldnames=['Ano de exibição', 'Título da Obra'], delimiter = ';')
+        if inf.tell() == 0:
+            writer.writeheader()
         for linha in filme:
             coluna = linha.split(";")
             if coluna[0] == str(ano):
@@ -37,8 +39,9 @@ def filme_ano(ano):
 
 def genero(pesq):
     with open("alg2/filmes.csv", "r") as filmes, open("alg2/genero.csv", "w", encoding='utf-8') as genero:
-
-        genero.write("Ano de lançamento; Nome da obra; Gênero \n")
+        writer = csv.DictWriter(genero, fieldnames=['Ano de exibição', 'Título da Obra', 'Gênero'], delimiter = ';')
+        if inf.tell() == 0:
+            writer.writeheader()
         for linha in filmes:
             coluna = linha.split(";")
             if coluna[3].lower() == pesq.lower():
@@ -46,7 +49,9 @@ def genero(pesq):
 
 def empresa(pesq):
     with open("alg2/filmes.csv", "r") as filmes, open("alg2/empresa.csv", "w", encoding='utf-8') as empresa:
-        empresa.write("Ano de lançamento; Nome da obra; Gênero; Empresa Distribuidora \n")
+        writer = csv.DictWriter(empresa, fieldnames=['Ano de exibição', 'Título da Obra', 'Gênero', 'Empresa Distribuidora'], delimiter = ';')
+        if inf.tell() == 0:
+            writer.writeheader()
         for linha in filmes:
             coluna = linha.split(";")
             if coluna[7].lower() == pesq.lower():
