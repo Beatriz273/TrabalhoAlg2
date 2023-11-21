@@ -1,4 +1,4 @@
-import os
+import csv
 ano_e = []
 
 def filme_ano(ano):
@@ -25,18 +25,17 @@ def genero(pesq):
                 # print (coluna[3])
 
 def inf(nome_filme):
-    with open("alg2/filmes.csv", "r") as filmes:
-        teste = (f'{(os.path.abspath(os.curdir))}/alg2/inf.csv')
-        existeArq = (os.path.isfile(teste))
-
-        with open("alg2/inf.csv", "a") as inf:
-            print(not )
-            if (not existeArq):
-                inf.write("Ano de exibição; Título da Obra; CPB/ROE; Gênero; Nacionalidade; Data de Lançamento; Empresa Distribuidora; Renda acumulada \n ")
-            for linha in filmes:
-                coluna = linha.split(";")
-                if coluna[1].lower() == nome_filme.lower():
-                    inf.write(f"{coluna[0]}; {coluna[1]}; {coluna[2]}; {coluna[3]}; {coluna[5]}; {coluna[6]}; {coluna[7]}; {coluna[12]} \n")
+    info = []
+    with open("alg2/filmes.csv", "r") as filmes, open("alg2/inf.csv", "a") as inf:
+        writer = csv.DictWriter(inf, fieldnames=['Ano de exibição', 'Título da Obra', 'CPB/ROE', 'Gênero', 'Nacionalidade', 'Data de Lançamento', 'Empresa Distribuidora', 'Renda acumulada'], delimiter = ';')
+        if inf.tell() == 0:
+            writer.writeheader()
+        for linha in filmes:
+            coluna = linha.split(";")
+            if coluna[1].lower() == nome_filme.lower():
+                info.append((f"{coluna[0]}; {coluna[1]}; {coluna[2]}; {coluna[3]}; {coluna[5]}; {coluna[6]}; {coluna[7]}; {coluna[12]} \n"))
+                if info.lower() not in nome_filme.lower():
+                    nome_filme.write(info)
 
 def main():
     print("Seja bem-vindo!")
