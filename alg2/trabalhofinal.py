@@ -50,10 +50,10 @@ def inf(nome_filme):
         for linha in csv.reader(filmes, delimiter = ';'):
             coluna = linha
             if coluna[2] == nome_filme:
-                inf.write(f"{coluna[0]}; {coluna[1]}; {coluna[2]}; {coluna[3]}; {coluna[5]}; {coluna[6]}; {coluna[7]}; {coluna[12]}")
+                inf.write(f"{coluna[0]}; {coluna[1]}; {coluna[2]}; {coluna[3]}; {coluna[5]}; {coluna[6]}; {coluna[7]}; {coluna[12]} \n")
                 cont_inf += 1
             if coluna[1].lower() == nome_filme.lower():
-                inf.write(f"{coluna[0]}; {coluna[1]}; {coluna[2]}; {coluna[3]}; {coluna[5]}; {coluna[6]}; {coluna[7]}; {coluna[12]}")
+                inf.write(f"{coluna[0]}; {coluna[1]}; {coluna[2]}; {coluna[3]}; {coluna[5]}; {coluna[6]}; {coluna[7]}; {coluna[12]} \n")
                 cont_inf += 1
     print(f"Há um total de {cont_inf} linhas nesse arquivo")
             # inf(coluna[1])
