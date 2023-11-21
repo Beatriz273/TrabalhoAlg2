@@ -16,7 +16,7 @@ def filme_ano(ano):
             if coluna[0] == str(ano):
                 filme_ano.write(coluna[0]+";"+coluna[1]+"\n")
                 cont_ano +=1
-    print(f"Há um total de {cont_ano} linhas nesse arquivo")
+    print(f"Há um total de {cont_ano + 1} linhas nesse arquivo")
 
 def genero(pesq):
     with open("alg2/filmes.csv", "r") as filmes, open("alg2/genero.csv", "w", encoding='utf-8') as genero:
@@ -27,7 +27,7 @@ def genero(pesq):
             if coluna[3].lower() == pesq.lower():
                 genero.write(coluna[0]+";"+coluna[1]+";"+coluna[3]+"\n")
                 cont_gen += 1
-    print(f"Há um total de {cont_gen} linhas nesse arquivo")
+    print(f"Há um total de {cont_gen + 1} linhas nesse arquivo")
 
 def empresa(pesq):
     with open("alg2/filmes.csv", "r") as filmes, open("alg2/empresa.csv", "w", encoding='utf-8') as empresa:
@@ -38,7 +38,7 @@ def empresa(pesq):
             if coluna[7].lower() == pesq.lower():
                 empresa.write(coluna[0]+";"+coluna[1]+";"+coluna[3]+ ";" + coluna[7] +"\n")
                 cont_empresa += 1
-    print(f"Há um total de {cont_empresa} linhas nesse arquivo")
+    print(f"Há um total de {cont_empresa + 1} linhas nesse arquivo")
 
 def inf(nome_filme):
     info = []
@@ -55,8 +55,7 @@ def inf(nome_filme):
             if coluna[1].lower() == nome_filme.lower():
                 inf.write(f"{coluna[0]}; {coluna[1]}; {coluna[2]}; {coluna[3]}; {coluna[5]}; {coluna[6]}; {coluna[7]}; {coluna[12]} \n")
                 cont_inf += 1
-    print(f"Há um total de {cont_inf} linhas nesse arquivo")
-            # inf(coluna[1])
+    print(f"Há um total de {cont_inf + 1} linhas nesse arquivo")
 
 def relatorio():
         count_filmes = len(arrFilmes)
