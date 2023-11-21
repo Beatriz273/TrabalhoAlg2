@@ -38,7 +38,7 @@ def filme_ano(ano):
                 filme_ano.write(coluna[0] + ";" + coluna[1] + "\n")
 
 def genero(pesq):
-    with open("alg2/filmes.csv", "r") as filmes, open("alg2/genero.csv", "w", encoding='utf-8') as genero:
+    with open("alg2/filmes.csv", "r") as filmes, open("alg2/genero.csv", "a", encoding='utf-8') as genero:
         writer = csv.DictWriter(genero, fieldnames=['Ano de exibição', 'Título da Obra', 'Gênero'], delimiter = ';')
         if genero.tell() == 0:
             writer.writeheader()
@@ -48,7 +48,7 @@ def genero(pesq):
                 genero.write(coluna[0]+";"+coluna[1]+";"+coluna[3]+"\n")
 
 def empresa(pesq):
-    with open("alg2/filmes.csv", "r") as filmes, open("alg2/empresa.csv", "w", encoding='utf-8') as empresa:
+    with open("alg2/filmes.csv", "r") as filmes, open("alg2/empresa.csv", "a", encoding='utf-8') as empresa:
         writer = csv.DictWriter(empresa, fieldnames=['Ano de exibição', 'Título da Obra', 'Gênero', 'Empresa Distribuidora'], delimiter = ';')
         if empresa.tell() == 0:
             writer.writeheader()
