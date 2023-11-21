@@ -1,86 +1,72 @@
 import csv
 ano_e = []
+arrFilmes = []
+
+
+with open("alg2/filmes.csv", "r") as filmes:
+        for filme in filmes:
+            arrFilmes.append(filme.split(';'))
 
 def filme_ano(ano):
     with open("alg2/filmes.csv", "r") as filme, open("alg2/filme_ano.csv", "w") as filme_ano:
+        cont_ano = 0
         filme_ano.write("Ano;Título da Obra \n")
         for linha in filme:
             coluna = linha.split(";")
-            #print(coluna)
             if coluna[0] == str(ano):
                 filme_ano.write(coluna[0]+";"+coluna[1]+"\n")
-                #ano_e.append(coluna[0]+";"+coluna[1])
-
-        # for i in ano_e:
-        #     filme_ano.write(i + "\n")
-
+                cont_ano +=1
+    print(f"Há um total de {cont_ano} linhas nesse arquivo")
 
 def genero(pesq):
     with open("alg2/filmes.csv", "r") as filmes, open("alg2/genero.csv", "w", encoding='utf-8') as genero:
+        cont_gen = 0
         genero.write("Ano de lançamento; Nome da obra; Gênero \n")
         for linha in filmes:
             coluna = linha.split(";")
             if coluna[3].lower() == pesq.lower():
                 genero.write(coluna[0]+";"+coluna[1]+";"+coluna[3]+"\n")
-                # print (coluna[3])
+                cont_gen += 1
+    print(f"Há um total de {cont_gen} linhas nesse arquivo")
 
 def empresa(pesq):
     with open("alg2/filmes.csv", "r") as filmes, open("alg2/empresa.csv", "w", encoding='utf-8') as empresa:
+        cont_empresa = 0
         empresa.write("Ano de lançamento; Nome da obra; Gênero; Empresa Distribuidora \n")
         for linha in filmes:
             coluna = linha.split(";")
             if coluna[7].lower() == pesq.lower():
                 empresa.write(coluna[0]+";"+coluna[1]+";"+coluna[3]+ ";" + coluna[7] +"\n")
+                cont_empresa += 1
+    print(f"Há um total de {cont_empresa} linhas nesse arquivo")
 
 def inf(nome_filme):
     info = []
     with open("alg2/filmes.csv", "r") as filmes, open("alg2/inf.csv", "a") as inf:
         writer = csv.DictWriter(inf, fieldnames=['Ano de exibição', 'Título da Obra', 'CPB/ROE', 'Gênero', 'Nacionalidade', 'Data de Lançamento', 'Empresa Distribuidora', 'Renda acumulada'], delimiter = ';')
+        cont_inf = 0
         if inf.tell() == 0:
             writer.writeheader()
         for linha in csv.reader(filmes, delimiter = ';'):
             coluna = linha
             if coluna[2] == nome_filme:
                 inf.write(f"{coluna[0]}; {coluna[1]}; {coluna[2]}; {coluna[3]}; {coluna[5]}; {coluna[6]}; {coluna[7]}; {coluna[12]}")
+                cont_inf += 1
             if coluna[1].lower() == nome_filme.lower():
                 inf.write(f"{coluna[0]}; {coluna[1]}; {coluna[2]}; {coluna[3]}; {coluna[5]}; {coluna[6]}; {coluna[7]}; {coluna[12]}")
+                cont_inf += 1
+    print(f"Há um total de {cont_inf} linhas nesse arquivo")
+            # inf(coluna[1])
 
 def relatorio():
-    with open("alg2/filmes.csv", "r") as filmes:
-        cont_filmes = 0
-        cont_filmes_c = 0
-        for linha in filmes:
-            coluna = linha.split(";")
-            cont_filmes += 1
-        print (f"No arquivo principal filmes.csv há um total de {cont_filmes} linhas")
-    with open("alg2/genero.csv", "r") as filmes:
-        cont_filmes = 0
-        cont_filmes_c = 0
-        for linha in filmes:
-            coluna = linha.split(";")
-            cont_filmes += 1
-        print (f"No arquivo genero.csv há um total de {cont_filmes} linhas")
-    with open("alg2/empresa.csv", "r") as filmes:
-        cont_filmes = 0
-        cont_filmes_c = 0
-        for linha in filmes:
-            coluna = linha.split(";")
-            cont_filmes += 1
-        print (f"No arquivo empresa.csv há um total de {cont_filmes} linhas")
-    with open("alg2/inf.csv", "r") as filmes:
-        cont_filmes = 0
-        cont_filmes_c = 0
-        for linha in filmes:
-            coluna = linha.split(";")
-            cont_filmes += 1
-        print (f"No arquivo inf.csv há um total de {cont_filmes} linhas")
-    with open("alg2/filme_ano.csv", "r") as filmes:
-        cont_filmes = 0
-        cont_filmes_c = 0
-        for linha in filmes:
-            coluna = linha.split(";")
-            cont_filmes += 1
-        print (f"No arquivo filme_ano.csv há um total de {cont_filmes} linhas")
+        count_filmes = len(arrFilmes)
+        cabecalho = arrFilmes[0]
+        print (f"\nNo arquivo principal filmes.csv há um total de {count_filmes} linhas")
+
+        print(f"\nOs nomes das colunas são: ")
+        for i in range(len(cabecalho)):
+            if(cabecalho[i].strip() != ''):
+                print(cabecalho[i])
 
 def main():
     print("Seja bem-vindo!")
@@ -146,10 +132,6 @@ def main():
                 main()
     elif num == 6:
         relatorio()
-
-            
-
-
         
 if __name__ == "__main__":
     main()
