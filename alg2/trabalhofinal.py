@@ -24,18 +24,63 @@ def genero(pesq):
                 genero.write(coluna[0]+";"+coluna[1]+";"+coluna[3]+"\n")
                 # print (coluna[3])
 
+def empresa(pesq):
+    with open("alg2/filmes.csv", "r") as filmes, open("alg2/empresa.csv", "w", encoding='utf-8') as empresa:
+        empresa.write("Ano de lançamento; Nome da obra; Gênero; Empresa Distribuidora \n")
+        for linha in filmes:
+            coluna = linha.split(";")
+            if coluna[7].lower() == pesq.lower():
+                empresa.write(coluna[0]+";"+coluna[1]+";"+coluna[3]+ ";" + coluna[7] +"\n")
+
 def inf(nome_filme):
     info = []
     with open("alg2/filmes.csv", "r") as filmes, open("alg2/inf.csv", "a") as inf:
         writer = csv.DictWriter(inf, fieldnames=['Ano de exibição', 'Título da Obra', 'CPB/ROE', 'Gênero', 'Nacionalidade', 'Data de Lançamento', 'Empresa Distribuidora', 'Renda acumulada'], delimiter = ';')
         if inf.tell() == 0:
             writer.writeheader()
+        for linha in csv.reader(filmes, delimiter = ';'):
+            coluna = linha
+            if coluna[2] == nome_filme:
+                inf.write(f"{coluna[0]}; {coluna[1]}; {coluna[2]}; {coluna[3]}; {coluna[5]}; {coluna[6]}; {coluna[7]}; {coluna[12]}")
+            if coluna[1].lower() == nome_filme.lower():
+                inf.write(f"{coluna[0]}; {coluna[1]}; {coluna[2]}; {coluna[3]}; {coluna[5]}; {coluna[6]}; {coluna[7]}; {coluna[12]}")
+
+def relatorio():
+    with open("alg2/filmes.csv", "r") as filmes:
+        cont_filmes = 0
+        cont_filmes_c = 0
         for linha in filmes:
             coluna = linha.split(";")
-            if coluna[1].lower() == nome_filme.lower():
-                info.append((f"{coluna[0]}; {coluna[1]}; {coluna[2]}; {coluna[3]}; {coluna[5]}; {coluna[6]}; {coluna[7]}; {coluna[12]} \n"))
-                if info.lower() not in nome_filme.lower():
-                    nome_filme.write(info)
+            cont_filmes += 1
+        print (f"No arquivo principal filmes.csv há um total de {cont_filmes} linhas")
+    with open("alg2/genero.csv", "r") as filmes:
+        cont_filmes = 0
+        cont_filmes_c = 0
+        for linha in filmes:
+            coluna = linha.split(";")
+            cont_filmes += 1
+        print (f"No arquivo genero.csv há um total de {cont_filmes} linhas")
+    with open("alg2/empresa.csv", "r") as filmes:
+        cont_filmes = 0
+        cont_filmes_c = 0
+        for linha in filmes:
+            coluna = linha.split(";")
+            cont_filmes += 1
+        print (f"No arquivo empresa.csv há um total de {cont_filmes} linhas")
+    with open("alg2/inf.csv", "r") as filmes:
+        cont_filmes = 0
+        cont_filmes_c = 0
+        for linha in filmes:
+            coluna = linha.split(";")
+            cont_filmes += 1
+        print (f"No arquivo inf.csv há um total de {cont_filmes} linhas")
+    with open("alg2/filme_ano.csv", "r") as filmes:
+        cont_filmes = 0
+        cont_filmes_c = 0
+        for linha in filmes:
+            coluna = linha.split(";")
+            cont_filmes += 1
+        print (f"No arquivo filme_ano.csv há um total de {cont_filmes} linhas")
 
 def main():
     print("Seja bem-vindo!")
@@ -45,8 +90,8 @@ def main():
     print("2. Quais as obras de um gênero específico.")
     print("3. Pesquisar as informações sobre um filme.")
     print("4. Pesquisar um filme através de seu CBP / ROE.")
-    print("5. Pesquisar um filme através de seu(s) país(es) produtor(es).")
-    print("6. Pesquisar os filmes exibidos por uma empresa distribuidora específica.")
+    print("5. Pesquisar os filmes exibidos por uma empresa distribuidora específica.")
+    print("6. Exibir relatório.")
 
     num = int(input("Insira o número: "))
 
@@ -77,8 +122,32 @@ def main():
             continuar = input("Você deseja obter informação de mais algum filme? (S/N) ").lower() == "n"
             while continuar:
                 main()
-    # elif num == 4:
-        
+    elif num == 4:
+        print("Se deseja voltar ao menu digite 0.")
+        while True:
+            nome_cpb = input("Insira o CPB/ROE do filme: ")
+            if nome_cpb == 0:
+                main()
+            else:
+                inf(nome_cpb)
+            continuar = input("Você deseja obter informação de mais algum filme? (S/N) ").lower() == "n"
+            while continuar:
+                main()
+    elif num == 5:
+        print("Se deseja voltar ao menu digite 0.")
+        while True:
+            nome_emp = input("Insira a empresa distrubuidora do filme: ")
+            if nome_emp == 0:
+                main()
+            else:
+                empresa(nome_emp)
+            continuar = input("Você deseja obter informação de mais algum filme? (S/N) ").lower() == "n"
+            while continuar:
+                main()
+    elif num == 6:
+        relatorio()
+
+            
 
 
         
